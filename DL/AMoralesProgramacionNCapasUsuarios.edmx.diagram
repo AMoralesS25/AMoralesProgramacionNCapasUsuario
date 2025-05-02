@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6e7ded32b8fd43e796dfb00b908e9c7b" Name="Diagram1">
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Colonia" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Direccion" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Estado" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Municipio" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Rol" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Usuario" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKColoniaDireccion" ManuallyRouted="false" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKMunicipioColonia" ManuallyRouted="false" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKUsuarioDireccion" ManuallyRouted="false" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKEstadoMunicipio" ManuallyRouted="false" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKUsuarioRol" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
