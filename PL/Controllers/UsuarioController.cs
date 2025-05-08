@@ -120,16 +120,15 @@ namespace PL.Controllers
                 if (usuario.IdUsuario == 0)
                 {
                     ML.Result result = BL.Usuario.AddEF(usuario);
-
                     if (result.Correct)
                     {
-                        ViewBag.MensajeVerificado = "Se agrego el usuario de manera correcta";
-                        return PartialView("_NotificacionDeEstado");
+                        ViewBag.Mensaje = "Usuario agregado";
+                        return PartialView("~/Views/Candidato/_Notificacion.cshtml");
                     }
                     else
                     {
-                        ViewBag.MensajeVerificado = "Hubo un error al agregar el usuario";
-                        return PartialView("_NotificacionDeEstado");
+                        ViewBag.MensajeError = "Hubo un error al agregar el usuario";
+                        return PartialView("~/Views/Candidato/_Notificacion.cshtml");
                     }
                 }
                 else
@@ -137,13 +136,13 @@ namespace PL.Controllers
                     ML.Result result = BL.Usuario.UpdateEF(usuario);
                     if (result.Correct)
                     {
-                        ViewBag.MensajeVerificado = "Se actualizo el usuario de manera correcta";
-                        return PartialView("_NotificacionDeEstado");
+                        ViewBag.Mensaje = "Usuario actualizado";
+                        return PartialView("~/Views/Candidato/_Notificacion.cshtml");
                     }
                     else
                     {
-                        ViewBag.MensajeVerificado = "Hubo un error al actualizar el usuario";
-                        return PartialView("_NotificacionDeEstado");
+                        ViewBag.MensajeError = "Hubo un error al actualizar el usuario";
+                        return PartialView("~/Views/Candidato/_Notificacion.cshtml");
                     }
                 }
             }
@@ -179,13 +178,13 @@ namespace PL.Controllers
             ML.Result result = BL.Usuario.DeleteEF(IdUsuario);
             if (result.Correct)
             {
-                ViewBag.MensajeVerificado = "Se elimino el usuario de manera correcta";
-                return PartialView("_NotificacionDeEstado");
+                ViewBag.Mensaje = "Usuario eliminado";
+                return PartialView("~/Views/Candidato/_Notificacion.cshtml");
             }
             else
             {
-                ViewBag.MensajeVerificado = "Hubo un error al eliminar el usuario";
-                return PartialView("_NotificacionDeEstado");
+                ViewBag.MensajeError = "Hubo un error al eliminar el usuario";
+                return PartialView("~/Views/Candidato/_Notificacion.cshtml");
             }
         }
 
