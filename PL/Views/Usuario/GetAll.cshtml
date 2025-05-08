@@ -1,0 +1,291 @@
+﻿@model ML.Usuario
+
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="~/Styles/UsuarioStyleGetAll.css" />
+
+<h2>Usuarios</h2>
+
+@*carga masiva*@
+@using (Html.BeginForm("CargaMasiva", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="container mt-4">
+        <div class="form-group mt-4">
+            <div class="accordionTitleCarga">
+                <a class="btn btn-info">
+                    <i class="bi bi-floppy-fill"> Carga Masiva</i>
+                </a>
+            </div>
+        </div>
+    </div><div class="accordion-contentCarga">
+        <div class="container mt-4">
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="form-group mt-2">
+                        <input type="file" accept=".xlsx" name="inptFileExcel" onchange="ValidarExcel()" id="inptFileImagen" />
+                    </div>
+                </div>
+
+            </div>
+            @if (Session["RutaExcel"] == null)
+            {
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-success">Cargar</button>
+                </div>
+            }
+            else
+            {
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-success">Insertar</button>
+                </div>
+            }
+
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("GetAll", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="container mt-4">
+        <div class="form-group mt-4">
+            <div class="accordionTitle">
+                <a class="btn btn-info">
+                    <i class="bi bi-search-heart-fill"> Busqueda</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-content">
+        <div class="container mt-4">
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="form-group mt-2">
+                        @Html.LabelFor(model => model.Nombre, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mt-2">
+                        @Html.LabelFor(model => model.ApellidoPaterno, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="form-group mt-2">
+                        @Html.LabelFor(model => model.ApellidoMaterno, new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mt-2">
+                        @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"),
+                       "Selecciona un Rol", new { @class = "form-select", @id = "ddlRol" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (Model.Usuarios.Count > 0)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="form-group mt-4">
+                    <a href="@Url.Action("Form","Usuario")" class="btn btn-primary">Agregar Usuario</a><br><br>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered border-dark table table-striped">
+                        <thead class="table-dark table align-middle">
+                            <tr>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">UserName</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido Paterno</th>
+                                <th scope="col">Apellido Materno</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Fecha de Nacimiento</th>
+                                <th scope="col">Sexo</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Celular</th>
+                                <th scope="col">Estatus</th>
+                                <th scope="col">CURP</th>
+                                <th scope="col">Rol</th>
+                                <th scope="col"><div class="size">Dirección</div></th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ML.Usuario usuario in Model.Usuarios)
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Form", "Usuario", new {IdUsuario=usuario.IdUsuario})"
+                                           class="btn btn-warning">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if (usuario.Imagen == null)
+                                        {
+                                            <img id="img" src="https://cdn-icons-png.flaticon.com/512/6522/6522581.png" width="90" , height="90" />
+                                        }
+                                        else
+                                        {
+                                            <img src="data:image/*;base64, @Convert.ToBase64String(usuario.Imagen)" width="90" , height="90" />
+                                        }
+                                    </td>
+                                    <td>@usuario.UserName</td>
+                                    <td>@usuario.Nombre</td>
+                                    <td>@usuario.ApellidoPaterno</td>
+                                    <td>@usuario.ApellidoMaterno</td>
+                                    <td>@usuario.Email</td>
+                                    <td>@usuario.Password</td>
+                                    <td>@usuario.FechaNacimiento</td>
+                                    <td>@usuario.Sexo</td>
+                                    <td>@usuario.Telefono</td>
+                                    <td>@usuario.Celular</td>
+                                    <td>
+                                        @if (@usuario.Estatus)
+                                        {
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked
+                                                       onchange="CambioEstatus(@usuario.IdUsuario, this)">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                                                       onchange="CambioEstatus(@usuario.IdUsuario, this)">
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>@usuario.CURP</td>
+                                    <td>@usuario.Rol.Nombre</td>
+                                    <td>
+                                        @if (usuario.Direccion.Calle == null)
+                                        {
+                                            @(" ")
+                                        }
+                                        else
+                                        {
+                                            @("Calle "+@usuario.Direccion.Calle + ", " +
+                                            "Numero interior "+@usuario.Direccion.NumeroExterior + ", " +
+                                            "Numero exterior "+@usuario.Direccion.NumeroInterior + ", " +
+                                            "Colonia "+@usuario.Direccion.Colonia.Nombre + ", " +
+                                            "CP. "+@usuario.Direccion.Colonia.CodigoPostal + ", " +
+                                            @usuario.Direccion.Colonia.Municipio.Nombre + ", " +
+                                            @usuario.Direccion.Colonia.Municipio.Estado.Nombre)
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Delete", "Usuario", new {IdUsuario=usuario.IdUsuario})"
+                                           class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        !No existen registros¡
+    </div>
+}
+
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script>
+    function CambioEstatus(IdUsuario, input) {
+        let estatus = input.checked
+        $.ajax({
+            url: "@Url.Action("CambioEstatus", "Usuario")",
+            dataType: "json",
+            type: "POST",
+            data: { IdUsuario: IdUsuario, Estatus: estatus },
+            success: function (result) {
+                if (result.Correct) {
+                    console.log("bien")
+                }
+                else {
+                    alert("Error en AJAX")
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr)
+            }
+        })
+    }
+
+    //Para el acordeon de busqueda
+    // Seleccionamos el título del acordeón
+    var accordionTitle = document.querySelector(".accordionTitle");
+
+    accordionTitle.addEventListener("click", () => {
+        var accordionContent = document.querySelector(".accordion-content");
+
+        // Alternamos la visibilidad del contenido
+        if (accordionContent.style.display === "none" || accordionContent.style.display === "") {
+            accordionContent.style.display = "block"; // Mostrar el contenido
+        } else {
+            accordionContent.style.display = "none"; // Ocultar el contenido
+        }
+    });
+
+    //Para el acordeon de la carga masiva
+    // Seleccionamos el título del acordeón
+    var accordionTitle = document.querySelector(".accordionTitleCarga");
+
+    accordionTitle.addEventListener("click", () => {
+        var accordionContent = document.querySelector(".accordion-contentCarga");
+
+        if (accordionContent.style.display === "none" || accordionContent.style.display === "") {
+            accordionContent.style.display = "block"; // Mostrar el contenido
+        } else {
+            accordionContent.style.display = "none"; // Ocultar el contenido
+        }
+    });
+
+    //validar archivo de excel
+    function validarImagen() {
+        var input = $('#inptFileExcel')[0].files[0].name.split('.').pop().toLowerCase()
+        console.log(input)
+
+        var extensionesValidas = 'xlsx'
+        var banderaImg = false;
+
+        if (input == extensionesValidas) {
+            banderaImg = true
+        }
+
+        if (!banderaImg) {
+            alert(`Las extensiones permitidas son: ${extensionesValidas}`)
+            $('#inptFileImagen').val("");
+        }
+    }
+</script>
+
+

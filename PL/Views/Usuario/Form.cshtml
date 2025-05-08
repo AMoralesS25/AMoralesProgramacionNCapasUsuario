@@ -1,0 +1,303 @@
+﻿@model ML.Usuario
+
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Styles/UsuarioStyleForm.css" />
+
+@using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "FormUsuario" }))
+{
+    <h2>Usuario</h2>
+    <hr />
+    <div class="container mt-4">
+        @Html.HiddenFor(model => model.IdUsuario)
+        @Html.HiddenFor(model => model.Imagen)
+        <div class="row mt-5">
+            <div class="col">
+                <div class="form-group mt-2">
+                    <input type="file" accept=".png, .jpg, .jpeg, .webp" name="inptFileImagen" onchange="validarImagen(),
+                    visualizarImagen(this)" id="inptFileImagen" />
+                    @* <img id="img" src="https://cdn-icons-png.flaticon.com/512/6522/6522581.png" width="200" , height="200" />*@
+                    @if (Model.Imagen == null)
+                    {
+                        <img id="img" src="https://cdn-icons-png.flaticon.com/512/6522/6522581.png" width="90" , height="90" />
+                    }
+                    else
+                    {
+                        <img id="img" src="data:image/*;base64, @Convert.ToBase64String(Model.Imagen)" width="90" , height="90" />
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.UserName, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @required = "required", @onkeypress = "ValidarUserName(this)", @id = "userName" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Nombre, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @required = "required", @onkeypress = "SoloLetras(event)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.ApellidoPaterno, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @required = "required", @onkeypress = "SoloLetras(event)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.ApellidoPaterno, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.ApellidoMaterno, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @required = "required", @onkeypress = "SoloLetras(event)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.ApellidoMaterno, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.CURP, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.CURP, new { @class = "form-control", @required = "required", @onblur = "validarCurp(this)" })
+                    <span class="error" display: none;"></span>
+                    @Html.ValidationMessageFor(model => model.CURP, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @required = "required", @onblur = "validarEmail(this)" })
+                    <span class="error" display: none;"></span>
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Password, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @id = "inptPassword", @required = "required", @onblur = "validarPassword(this)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group mt-2">
+                    <label>Confirmar password</label>
+                    <input type="text" id="inptConfirmarPassword" onblur="ConfirmarPassword(this)" class="form-control" />
+                    <span class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.FechaNacimiento, new { @class = "form-label" })
+                    @*@Html.TextBoxFor(model => model.FechaNacimiento, new { @class = "form-control", @placeholder = "dd/mm/aaaa", @required = "required" })*@
+                    @Html.TextBoxFor(model => model.FechaNacimiento, new { @class = "form-control", @required = "required", @type = "text", @id = "datepicker", @onblur = "validarFecha(this)" })
+                    @*<input type="text" id="datepicker" name="FechaNacimiento" class = "form-control">*@
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-2 ">
+                    @Html.LabelFor(model => model.Sexo, new { @class = "form-label" })
+
+                    @*@Html.TextBoxFor(model => model.Sexo, new { @class = "form-control", @required = "required" })*@
+
+                    <div class="form-check">
+                        Hombre
+                        @Html.RadioButtonFor(model => model.Sexo, "H", new { @class = "form-check-input", @required = "required" })
+                    </div>
+                    <div class="form-check">
+                        Mujer
+                        @Html.RadioButtonFor(model => model.Sexo, "M", new { @class = "form-check-input", @required = "required" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Telefono, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", @required = "required", @onkeypress = "SoloNumeros(event)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Celular, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Celular, new { @class = "form-control", @required = "required", @onkeypress = "SoloNumeros(event)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Celular, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Rol.IdRol, new { @class = "form-label" })
+
+                    @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"),
+    "Selecciona un Rol", new { @class = "form-select", @required = "required", @onchange = "ValidarDDL(this)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Rol.IdRol, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        <br /><br /><br />
+        <h2>Dirección</h2>
+        <hr />
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Direccion.Calle, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Direccion.Calle, new { @class = "form-control", @required = "required", @onblur = "ValidarDireccion(this)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Direccion.Calle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Direccion.NumeroExterior, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Direccion.NumeroExterior, new { @class = "form-control", @required = "required", @onblur = "ValidarDireccion(this)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Direccion.NumeroExterior, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Direccion.NumeroInterior, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Direccion.NumeroInterior, new { @class = "form-control", @required = "required", @onblur = "ValidarDireccion(this)" })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Direccion.NumeroInterior, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-4">
+                    @Html.LabelFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado, new { @class = "form-label" })
+
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado,
+                   new SelectList(Model.Direccion.Colonia.Municipio.Estado.Estados, "IdEstado", "Nombre"),
+                   "Selecciona un estado", new
+                   {
+                       @class = "form-select",
+                       @required = "required",
+                       @onchange = "MunicipioGetByIdEstado(), ValidarDDL(this)",
+                       @id = "ddlEstado"
+                   })
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Direccion.Colonia.Municipio.IdMunicipio, new { @class = "form-label" })
+
+                    @if (Model.Direccion.Colonia.Municipio.Municipios != null || Model.Direccion.Colonia.Municipio.IdMunicipio > 0)
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.IdMunicipio,
+                        new SelectList(Model.Direccion.Colonia.Municipio.Municipios, "IdMunicipio", "Nombre"),
+                        "Selecciona un municipio", new
+                        {
+                            @class = "form-select",
+                            @required = "required",
+                            @id = "ddlMunicipio",
+                            @onchange = "ColoniaGetByIdMunicipio(), ValidarDDL(this)"
+                        })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.IdMunicipio,
+                       new SelectList(String.Empty),
+                       "Selecciona un municipio", new
+                            {
+                                @class = "form-select",
+                                @required = "required",
+                                @onchange = "ColoniaGetByIdMunicipio(), ValidarDDL(this)",
+                                @id = "ddlMunicipio"
+                            })
+                    }
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.IdMunicipio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group mt-2">
+                    @Html.LabelFor(model => model.Direccion.Colonia.IdColonia, new { @class = "form-label" })
+
+                    @if (Model.Direccion.Colonia.Colonias != null || Model.Direccion.Colonia.IdColonia > 0)
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.IdColonia,
+                        new SelectList(Model.Direccion.Colonia.Colonias, "IdColonia", "Nombre"),
+                        "Selecciona una colonia", new
+                        {
+                            @class = "form-select",
+                            @required = "required",
+                            @id = "ddlColonia",
+                            @onchange = "ValidarDDL(this)"
+                        })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.IdColonia,
+                        new SelectList(String.Empty),
+                        "Selecciona una colonia", new
+                        {
+                            @class = "form-select",
+                            @required = "required",
+                            @id = "ddlColonia",
+                            @onchange = "ValidarDDL(this)"
+                        })
+                    }
+                    <span class="error"></span>
+                    @Html.ValidationMessageFor(model => model.Direccion.Colonia.IdColonia, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-success" onclick="validarFormulario(event)">Guardar</button>
+        </div>
+    </div>
+
+
+}
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+
+<script>
+    var ddlMunicipioURL = "@Url.Action("GetByIdEstado", "Usuario")?idEstado=";
+    var ddlColoniaURL = "@Url.Action("GetByIdMunicipio", "Usuario")?idMunicipio=";
+</script>
+
+<script src="~/Scripts/Validaciones/Validaciones.js"></script>
+
+
+
+
+
