@@ -70,10 +70,6 @@
       <Project>{52ac2d80-0623-4b78-81f0-5978e22d32c2}</Project>
       <Name>DL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ML\ML.csproj">
-      <Project>{b0a4c0f3-3af7-40b8-ba83-b67ee80f536c}</Project>
-      <Name>ML</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
