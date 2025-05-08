@@ -1,0 +1,210 @@
+﻿@model ML.Candidato
+
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<link rel="stylesheet" href="~/Styles/StyleGetAllCandidato.css" />
+
+<h2><i class="bi bi-person-workspace"></i> Candidatos</h2>
+<hr>
+
+@using (Html.BeginForm("GetAll", "Candidato", FormMethod.Post))
+{
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Selecciona una vacante</h5>
+                <p class="card-text">Elige una vacante para visualizar los candidatos registrados.</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.DropDownListFor(model => model.Vacante.IdVacante,
+                                new SelectList(Model.Vacante.Vacantes, "IdVacante", "Nombre"),
+                                "Selecciona una vacante",
+                                new { @class = "form-select", @id = "ddlVacante" })
+                        </div>
+                    </div>
+                    <div class="col-md-8 d-flex justify-content-start align-items-end">
+                        <button type="submit" class="btn btn-success w-auto mt-2"><i class="bi bi-search"></i> Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="text-end mt-4">
+    <a href="@Url.Action("Form", "Candidato")" class="btn btn-primary">
+        <i class="bi bi-person-plus-fill"></i> Agregar Candidato
+    </a>
+</div>
+
+@if (Model.Vacante.IdVacante != 0)
+{
+    if (Model.Candidatos.Count > 0)
+    {
+        <div class="d-flex justify-content-end gap-2 mt-3">
+            <button class="btn btn-outline-primary" onclick="mostrarTabla()">
+                <i class="bi bi-table"></i> Ver en tabla
+            </button>
+            <button class="btn btn-outline-secondary" onclick="mostrarCards()">
+                <i class="bi bi-grid-3x3-gap-fill"></i> Ver en cards
+            </button>
+        </div>
+        <div id="tablaView" class="card mt-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Candidatos Registrados</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover align-middle">
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                                <th>Nombre Completo</th>
+                                <th>Edad</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Foto</th>
+                                <th>Currículum</th>
+                                <th>Universidad</th>
+                                <th>Carrera</th>
+                                <th>Bolsa de Trabajo</th>
+                                <th>Vacante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ML.Candidato candidato in Model.Candidatos)
+                            {
+                                <tr>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("Form", "Candidato", new { IdCandidato = candidato.IdCandidato })"
+                                           class="btn btn-warning btn-sm">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("Delete", "Usuario", new { IdCandidato = candidato.IdCandidato })"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    </td>
+                                    <td>@(candidato.Nombre + " " + candidato.ApellidoPaterno + " " + candidato.ApellidoMaterno)</td>
+                                    <td>@candidato.Edad</td>
+                                    <td>@candidato.Correo</td>
+                                    <td>@candidato.Telefono</td>
+                                    <td>@candidato.Direccion</td>
+                                    <td class="text-center">
+                                        @if (candidato.Foto == null)
+                                        {
+                                            <img src="https://cdn-icons-png.flaticon.com/512/456/456212.png"
+                                                 width="120" height="120"
+                                                 class="rounded-circle border border-secondary" />
+                                        }
+                                        else
+                                        {
+                                            <img src="data:image/*;base64,@Convert.ToBase64String(candidato.Foto)"
+                                                 width="120" height="120"
+                                                 class="rounded-circle border border-secondary" />
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        @if (candidato.Curriculum == null)
+                                        {
+                                            <img src="https://cdn-icons-png.flaticon.com/512/304/304579.png" width="50" height="50" />
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("DescargarCurriculum", "Candidato", new { IdCandidato = candidato.IdCandidato })"
+                                               class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-file-earmark-arrow-down-fill"></i> Descargar
+                                            </a>
+                                        }
+                                    </td>
+                                    <td>@candidato.Universidad.Nombre</td>
+                                    <td>@candidato.Carrera.Nombre</td>
+                                    <td>@candidato.BolsaTrabajo.Nombre</td>
+                                    <td>@candidato.Vacante.Nombre</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="cardView" class="row row-cols-1 row-cols-md-3 g-4 mt-4" style="display:none;">
+            @foreach (ML.Candidato candidato in Model.Candidatos)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <img src="@(candidato.Foto != null ? $"data:image/*;base64,{Convert.ToBase64String(candidato.Foto)}" : "https://cdn-icons-png.flaticon.com/512/456/456212.png")"
+                                 class="rounded-circle mb-3 border border-secondary"
+                                 width="120" height="120" />
+                            <h5 class="card-title">@candidato.Nombre @candidato.ApellidoPaterno @candidato.ApellidoMaterno</h5>
+                            <p class="card-text"><strong>Edad:</strong> @candidato.Edad</p>
+                            <p class="card-text"><strong>Correo:</strong> @candidato.Correo</p>
+                            <p class="card-text"><strong>Teléfono:</strong> @candidato.Telefono</p>
+                            <p class="card-text"><strong>Dirección:</strong> @candidato.Direccion</p>
+                            <p class="card-text"><strong>Universidad:</strong> @candidato.Universidad.Nombre</p>
+                            <p class="card-text"><strong>Carrera:</strong> @candidato.Carrera.Nombre</p>
+                            <p class="card-text"><strong>Vacante:</strong> @candidato.Vacante.Nombre</p>
+                            <p class="card-text"><strong>Vacante:</strong> @candidato.BolsaTrabajo.Nombre</p>
+                            <p class="card-text">
+                                <strong>Currículum:</strong>
+                                @if (candidato.Curriculum != null)
+                                {
+                                    <a href="@Url.Action("DescargarCurriculum", "Candidato", new { IdCandidato = candidato.IdCandidato })"
+                                       class="btn btn-outline-primary btn-sm" target="_blank">
+                                        <i class="bi bi-file-earmark-arrow-down-fill"></i> Descargar
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">
+                                        <i class="bi bi-file-earmark-excel-fill"></i> No disponible
+                                    </span>
+                                }
+                            </p>
+
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="@Url.Action("Form", "Candidato", new { IdCandidato = candidato.IdCandidato })" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
+
+                            <a href="@Url.Action("Delete", "Usuario", new { IdCandidato = candidato.IdCandidato })"
+                               onclick="return confirm('¿Estás seguro de eliminar el registro?')"
+                               class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash3-fill"></i> Eliminar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    }
+
+    else
+    {
+        <div class="alert alert-warning text-center mt-4 w-75 mx-auto">
+            <i class="bi bi-person-fill-exclamation"></i> No existen registros de candidatos para la vacante seleccionada.
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-info text-center mt-4 w-75 mx-auto">
+        <i class="bi bi-patch-exclamation-fill"></i> Por favor selecciona una vacante para continuar.
+    </div>
+}
+
+<script src="~/Scripts/Candidatos/GetAllCandidatos.js"></script>

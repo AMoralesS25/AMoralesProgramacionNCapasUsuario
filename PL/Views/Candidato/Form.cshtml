@@ -1,0 +1,146 @@
+﻿@model ML.Candidato
+
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Styles/StyleCandidatoForm.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+@using (Html.BeginForm("Form", "Candidato", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <h2><i class="bi bi-person-up"></i> Candidato</h2>
+    <hr />
+
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="container mt-4">
+            @Html.HiddenFor(model => model.IdCandidato)
+            @Html.HiddenFor(model => model.Foto)
+            @Html.HiddenFor(model => model.Curriculum)
+            <form>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="form-group mt-2">
+                            <label for="Foto" class="form-label">Foto</label>
+                            <input type="file" accept=".png, .jpg, .jpeg, .webp" name="inptFileFoto" class="form-control" onchange="validarFoto(), visualizarFoto(this)" id="inptFileFoto" />
+                            @if (Model.Foto == null)
+                            {
+                                <img id="foto" src="https://cdn-icons-png.flaticon.com/512/3415/3415792.png" width="200" height="200" class="img-thumbnail" />
+                            }
+                            else
+                            {
+                                <img id="foto" src="data:image/*;base64, @Convert.ToBase64String(Model.Foto)" width="200" height="200" />
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mt-2">
+                            <label for="Curriculum" class="form-label">Curriculum</label>
+                            <input type="file" name="inptFileCurriculum" accept=".pdf" class="form-control" onchange="validarCurriculum(), visualizarCurriculum(this)" id="inptFileCurriculum" />
+                            @if (Model.Curriculum == null)
+                            {
+                                <div class="alert alert-info" role="alert" style="width: 50%; text-align: center; margin-top: auto;">
+                                    <i class="bi bi-file-earmark-excel"></i>Sin Curriculum
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-info" role="alert" style="width: 50%; text-align: center; margin-top: auto;">
+                                    <i class="bi bi-file-earmark-check"></i>Con Curriculum
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4 mt-2">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nombre, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", placeholder = "Ingresa el nombre" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ApellidoPaterno, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", placeholder = "Ingresa el apellido paterno" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ApellidoMaterno, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", placeholder = "Ingresa el apellido materno" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Edad, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.Edad, new { @class = "form-control", type = "number", min = "0" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Correo, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.Correo, new { @class = "form-control", type = "email", placeholder = "ejemplo@correo.com" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telefono, new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", type = "tel", placeholder = "Escribe número de teléfono" })
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Direccion, new { @class = "form-label" })
+                                @Html.TextAreaFor(model => model.Direccion, new { @class = "form-control", placeholder = "Escribe tu dirección completa", rows = "4" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Universidad.IdUniversidad, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.Universidad.IdUniversidad, new SelectList(Model.Universidad.Universidades, "IdUniversidad", "Nombre"), "Selecciona una Universidad", new { @class = "form-select" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Carrera.IdCarrera, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.Carrera.IdCarrera, new SelectList(Model.Carrera.Carreras, "IdCarrera", "Nombre"), "Selecciona una Carrera", new { @class = "form-select" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new SelectList(Model.BolsaTrabajo.BolsasTrabajos, "IdBolsaTrabajo", "Nombre"), "Selecciona una Bolsa de Trabajo", new { @class = "form-select" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Vacante.IdVacante, new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.Vacante.IdVacante, new SelectList(Model.Vacante.Vacantes, "IdVacante", "Nombre"), "Selecciona una Vacante", new { @class = "form-select" })
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary px-4 py-2" onclick="validarFormulario(event)">
+                        <i class="bi bi-check-circle"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+}
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+
+
+<script src="~/Scripts/Candidatos/CandidatosValidaciones.js"></script>

@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .header {
+            background-color: #6c5ce7;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .header h1 {
+                font-size: 28px;
+                margin: 0;
+                font-weight: 600;
+                letter-spacing: 1px;
+            }
+
+        .content {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+            .content p {
+                color: #333;
+                font-size: 18px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            .content img {
+                width: 100%;
+                max-width: 550px;
+                height: auto;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .btn {
+            background-color: #6c5ce7;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 30px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+            .btn:hover {
+                background-color: #5a4bcf;
+            }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+
+            .footer a {
+                color: #6c5ce7;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+                .footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>¡Bienvenido {{NombreUsuario}} a Nuestro Equipo de Trabajo!</h1>
+        </div>
+        <div class="content">
+            <p>¡Estamos emocionados de tenerte con nosotros!</p>
+            <img src="cid:imagen" alt="Imagen bienvenida" />
+            <p>Haz clic y observa un video informativo de la empresa</p>
+            <a href="https://youtu.be/j_vNZ1bgZs0?si=ssOzt4OoimOlr9Br" class="btn">Ver video</a>
+        </div>
+        <div class="footer">
+            <p>Más Acerca de Nosotros <a href="https://digis01.com/">DIGIS</a></p>
+        </div>
+    </div>
+</body>
+</html>

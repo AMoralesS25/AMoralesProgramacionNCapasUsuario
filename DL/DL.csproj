@@ -65,6 +65,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.edmx</DependentUpon>
     </Compile>
+    <Compile Include="BolsaTrabajo.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Candidato.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CandidatoGetAll_Result.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CandidatoGetById_Result.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Carrera.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cita.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Colonia.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
@@ -81,14 +99,23 @@
     <Compile Include="EstadoGetAll_Result.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>
+    <Compile Include="EstatusCita.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
     <Compile Include="Municipio.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>
     <Compile Include="MunicipioGetByIdEstado_Result.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>
+    <Compile Include="Piso.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rol.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Universidad.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>
     <Compile Include="Usuario.cs">
@@ -98,6 +125,9 @@
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>
     <Compile Include="UsuarioGetById_Result.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vacante.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>
   </ItemGroup>

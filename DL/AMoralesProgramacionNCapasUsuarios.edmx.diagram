@@ -16,6 +16,21 @@
         <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKUsuarioDireccion" ManuallyRouted="false" />
         <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKEstadoMunicipio" ManuallyRouted="false" />
         <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKUsuarioRol" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.BolsaTrabajo" Width="1.5" PointX="5.375" PointY="7.625" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Candidato" Width="1.5" PointX="7.625" PointY="6" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Carrera" Width="1.5" PointX="5.375" PointY="12.25" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Cita" Width="1.5" PointX="9.875" PointY="7.125" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.EstatusCita" Width="1.5" PointX="7.625" PointY="11.75" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Piso" Width="1.5" PointX="7.625" PointY="3.375" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Universidad" Width="1.5" PointX="5.375" PointY="10" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Vacante" Width="1.5" PointX="5.375" PointY="14.625" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCandidatoBolsaTrabajo" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCandidatoCarrera" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCandidatoUniversidad" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCandidatoVacante" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCitaCandidato" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCitaEstatusCita" />
+        <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCitaPiso" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
