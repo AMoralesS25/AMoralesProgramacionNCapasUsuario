@@ -131,6 +131,7 @@
     <Compile Include="Controllers\CitaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\UsuarioJSController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,6 +168,7 @@
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\Candidatos\CandidatosValidaciones.js" />
     <Content Include="Scripts\Candidatos\GetAllCandidatos.js" />
+    <Content Include="Scripts\CRUDJS\CRUDJS.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -201,9 +203,11 @@
     <Content Include="Views\Usuario\GetAll.cshtml" />
     <Content Include="Views\Usuario\Form.cshtml" />
     <Content Include="Views\Usuario\_ErroresExcel.cshtml" />
+    <Content Include="Views\UsuarioJS\GetAllJS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CargaMasiva\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Cita\" />
   </ItemGroup>
