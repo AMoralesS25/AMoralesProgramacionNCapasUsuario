@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace ML
     public class Candidato
     {
         public int IdCandidato { get; set; }
+        [Required(ErrorMessage = "Escribe el username")]
+        [RegularExpression(@"^[A-Za-z0-9]{5,50}$", ErrorMessage = "El nombre de usuario debe tener al menos un numero y letras")]
         public string Nombre { get; set; }
         [DisplayName("Apellido Paterno")]
         public string ApellidoPaterno { get; set; }

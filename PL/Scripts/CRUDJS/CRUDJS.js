@@ -304,15 +304,18 @@ function UsuarioGetById(IdUsuario) {
                 $('#Telefono').val(usuario.Telefono);
                 $('#Celular').val(usuario.Celular);
                 $('#CURP').val(usuario.CURP);
-                $("#ddlRol :selected").text();
-                $('#ddlRol').val(usuario.Rol.IdRol);
+                $('#ddlRol').val(usuario.Rol.IdRol).trigger('change');
+
+                // Si quieres ver el texto del elemento seleccionado:
+                console.log($("#ddlRol :selected").text()); 
                 $('#Calle').val(usuario.Direccion.Calle);
                 $('#NumeroExterior').val(usuario.Direccion.NumeroExterior);
                 $('#NumeroInterior').val(usuario.Direccion.NumeroInterior);
                 $('#ddlColonia').val(usuario.Direccion.Colonia.IdColonia);
                 $('#ddlMunicipio').val(usuario.Direccion.Colonia.Municipio.IdMunicpio);
                 $('#ddlEstado').val(usuario.Direccion.Colonia.Municipio.Estado.IdEstado);
-
+                var test = $('#ddlEstado');
+                console.log(test);
                 ShowModal();
             } else {
                 alert("No hay datos de usuario");

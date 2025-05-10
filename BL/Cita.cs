@@ -17,31 +17,8 @@ namespace BL
                     new DL.AMoralesProgramacionNCapasUsuariosEntities())
                 {
 
-                    var query = (from vacanteDB in context.Vacantes
-                                 select new
-                                 {
-                                     IdVacante = vacanteDB.IdVacante,
-                                     Nombre = vacanteDB.Nombre,
-                                 }).ToList();
-
-                    if (query.Count > 0)
-                    {
-                        result.Objects = new List<object>();
-                        foreach (var objBD in query)
-                        {
-                            ML.Vacante vacante = new ML.Vacante();
-                            vacante.IdVacante = objBD.IdVacante;
-                            vacante.Nombre = objBD.Nombre;
-
-                            result.Objects.Add(vacante);
-                            result.Correct = true;
-                        }
-                    }
-                    else
-                    {
-                        result.Correct = false;
-                        result.ErrorMessage = "No hay registros de vacantes";
-                    }
+                   
+                    
                 }
             }
             catch (Exception ex)
