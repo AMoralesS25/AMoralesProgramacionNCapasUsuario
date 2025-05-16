@@ -168,6 +168,7 @@
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\Candidatos\CandidatosValidaciones.js" />
     <Content Include="Scripts\Candidatos\GetAllCandidatos.js" />
+    <Content Include="Scripts\Citas\CRUDCitas.js" />
     <Content Include="Scripts\CRUDJS\CRUDJS.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -204,12 +205,12 @@
     <Content Include="Views\Usuario\Form.cshtml" />
     <Content Include="Views\Usuario\_ErroresExcel.cshtml" />
     <Content Include="Views\UsuarioJS\GetAllJS.cshtml" />
+    <Content Include="Views\Cita\GetAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CargaMasiva\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Cita\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -264,9 +265,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62159</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62159/</IISUrl>
+          <IISUrl>http://localhost:59753/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

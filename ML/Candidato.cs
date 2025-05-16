@@ -26,6 +26,7 @@ namespace ML
         [DisplayName("Dirección")]
         public string Direccion { get; set; }
         public byte[] Foto { get; set; }
+        public string ImagenBase64 { get; set; }
         public byte[] Curriculum { get; set; }
         public List<object> Candidatos { get; set; }
         public ML.Universidad Universidad { get; set; }
