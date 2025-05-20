@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CandidatoController.cs" />
     <Compile Include="Controllers\CitaController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\UsuarioJSController.cs" />
@@ -179,8 +180,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Maps\MapsAdd.js" />
+    <Content Include="Scripts\Maps\MapsGetAll.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Validaciones\Validaciones.js" />
+    <Content Include="Styles\MapsAdd.css" />
+    <Content Include="Styles\MapsGetAll.css" />
     <Content Include="Styles\UsuarioStyleForm.css" />
     <Content Include="Styles\UsuarioStyleGetAll.css" />
     <Content Include="Web.config" />
@@ -206,6 +211,8 @@
     <Content Include="Views\Usuario\_ErroresExcel.cshtml" />
     <Content Include="Views\UsuarioJS\GetAllJS.cshtml" />
     <Content Include="Views\Cita\GetAll.cshtml" />
+    <Content Include="Views\Empresa\GetAll.cshtml" />
+    <Content Include="Views\Empresa\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

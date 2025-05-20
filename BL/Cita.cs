@@ -44,7 +44,7 @@ namespace BL
                                      NombreCarrera = carreraDB != null ? carreraDB.Nombre : "No disponible",
                                      NombreBolsaTrabajo = bolsaDB != null ? bolsaDB.Nombre : "No disponible",
                                      NombreVacante = vacanteDB != null ? vacanteDB.Nombre : "No disponible",
-                                     IdCita = citaDB != null ? citaDB.IdCita : (int?)null // Asegurarse de manejar nulls si no hay cita
+                                     IdCita = citaDB != null ? citaDB.IdCita : (int?)null
                                  }).ToList();
 
 

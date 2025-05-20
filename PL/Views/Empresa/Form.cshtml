@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="~/Styles/MapsAdd.css" />
+
+<h2><i class="bi bi-building-fill-up"></i> Empresa</h2>
+
+<div class="container-fluid h-100 mt-3">
+    <div class="row h-100">
+        <div class="col-12 col-md-6 p-3 bg-light overflow-auto">
+            <div class="col-12 mt-1">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre">
+            </div>
+            <div class="col-md-6 mt-2">
+                <label for="lat" class="form-label">Latitud</label>
+                <input type="text" class="form-control" id="lat" disabled>
+            </div>
+            <div class="col-md-6 mt-2">
+                <label for="lng" class="form-label">Longitud</label>
+                <input type="text" class="form-control" id="lng" disabled>
+            </div>
+            <div class="col-12 text-end">
+                <button class="btn btn-primary"><i class="bi bi-building-check"></i> Guardar</button>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 p-0">
+            <div id="mapa"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Google Maps -->
+<script src="~/Scripts/Maps/MapsAdd.js"></script    >

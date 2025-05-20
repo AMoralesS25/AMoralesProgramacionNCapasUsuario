@@ -17,8 +17,6 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            
-
             ML.Candidato candidato = new ML.Candidato();
             candidato.Candidatos = new List<object>();
             ML.Result resultDDLVacante = BL.Vacante.GetAll();
