@@ -1,4 +1,5 @@
-﻿
+﻿@model ML.Empresa
+
 @{
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,30 +10,39 @@
 
 <h2><i class="bi bi-building-fill-up"></i> Empresa</h2>
 
-<div class="container-fluid h-100 mt-3">
-    <div class="row h-100">
-        <div class="col-12 col-md-6 p-3 bg-light overflow-auto">
-            <div class="col-12 mt-1">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre">
+@using (Html.BeginForm("Form", "Empresa", FormMethod.Post))
+{
+    <div class="container-fluid h-100 mt-3">
+        <div class="row h-100">
+            <div class="col-12 col-md-4 p-3 bg-light overflow-auto">
+
+                @Html.HiddenFor(model => model.IdEmpresa)
+                <div class="col-12 mt-1">
+                    @Html.LabelFor(model => model.Nombre, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", placeholder = "Ingresa el nombre" })
+                </div>
+                <div class="col-md-6 mt-2">
+                    @Html.LabelFor(model => model.Latitud, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control", @id = "lat", @readonly = "readonly" })
+                </div>
+                <div class="col-md-6 mt-2">
+                    @Html.LabelFor(model => model.Longitud, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control", @id = "lng", @readonly = "readonly" })
+                </div>
+                <div class="col-12 text-end">
+                    <button class="btn btn-primary"><i class="bi bi-building-check"></i> Guardar</button>
+                </div>
             </div>
-            <div class="col-md-6 mt-2">
-                <label for="lat" class="form-label">Latitud</label>
-                <input type="text" class="form-control" id="lat" disabled>
+            <div class="col-12 col-md-8 p-0">
+                <div id="mapa"></div>
             </div>
-            <div class="col-md-6 mt-2">
-                <label for="lng" class="form-label">Longitud</label>
-                <input type="text" class="form-control" id="lng" disabled>
-            </div>
-            <div class="col-12 text-end">
-                <button class="btn btn-primary"><i class="bi bi-building-check"></i> Guardar</button>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 p-0">
-            <div id="mapa"></div>
         </div>
     </div>
-</div>
+
+}
+
+
+
 
 <!-- Google Maps -->
-<script src="~/Scripts/Maps/MapsAdd.js"></script    >
+<script src="~/Scripts/Maps/MapsAdd.js"></script>

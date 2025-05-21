@@ -41,6 +41,7 @@ namespace DL
         public virtual DbSet<Piso> Pisoes { get; set; }
         public virtual DbSet<Universidad> Universidads { get; set; }
         public virtual DbSet<Vacante> Vacantes { get; set; }
+        public virtual DbSet<Empresa> Empresas { get; set; }
     
         public virtual int CambioEstatus(Nullable<int> idUsuario, Nullable<bool> estatus)
         {

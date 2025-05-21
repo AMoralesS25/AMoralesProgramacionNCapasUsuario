@@ -93,6 +93,9 @@
     <Compile Include="Direccion.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>
+    <Compile Include="Empresa.cs">
+      <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
+    </Compile>
     <Compile Include="Estado.cs">
       <DependentUpon>AMoralesProgramacionNCapasUsuarios.tt</DependentUpon>
     </Compile>

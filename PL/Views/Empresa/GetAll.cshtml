@@ -1,4 +1,7 @@
-﻿
+﻿@using Newtonsoft.Json
+
+@model ML.Empresa
+
 @{
     ViewBag.Title = "GetAll";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +9,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<link rel="stylesheet" href="~/Styles/MapsGetAll.css" />    
+<link rel="stylesheet" href="~/Styles/MapsGetAll.css" />
 
 
 <h2><i class="bi bi-building"></i> Empresas </h2>
@@ -19,34 +22,63 @@
 </div>
 
 
-<div class="container-fluid h-100 mt-3">
-    <div class="row h-100">
-        <div class="col-12 col-md-6 p-3 bg-light overflow-auto">
-            <h4 class="mb-3">Tabla de Datos</h4>
-            <table class="table table-striped">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Longitud</th>
-                        <th>Latitud</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>test</td>
-                        <td>123</td>
-                        <td>123</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-12 col-md-6 p-0">
-            <div id="mapa"></div>
+@if (Model.Empresas.Count > 0)
+{
+    <div class="container-fluid h-100 mt-3">
+        <div class="row h-100">
+            <div class="col-12 col-md-6 p-3 bg-light overflow-auto">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Longitud</th>
+                            <th>Latitud</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ML.Empresa empresa in Model.Empresas)
+                        {
+                            <tr>
+                                <td>@empresa.Nombre</td>
+                                <td>@empresa.Latitud</td>
+                                <td>@empresa.Longitud</td>
+                                <td>
+                                    <a href="@Url.Action("Form", "Empresa", new { IdEmpresa = empresa.IdEmpresa })"
+                                       class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Delete", "Empresa", new { IdEmpresa = empresa.IdEmpresa })"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 col-md-6 p-0">
+                <div id="mapa" style="height: 400px;"></div>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Google Maps -->
+
+
+}
+
+
+
+
+<script>
+    var empresasData = @Html.Raw(JsonConvert.SerializeObject(Model.Empresas));
+</script>
+
 
 <script src="~/Scripts/Maps/MapsGetAll.js"></script>
 

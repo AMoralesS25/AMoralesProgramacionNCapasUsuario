@@ -2,30 +2,49 @@
     key: "AIzaSyDCt5qUAX_luLPwkcfUOJutLLavQwVFgcA",
     v: "weekly",
 });
-// Initialize and add the map
-let map;
+
 
 async function initMap() {
-    // The location of Uluru
-    const position = { lat: -25.344, lng: 131.031 };
-    // Request needed libraries.
+    const cdmx = { lat: 19.4326, lng: -99.1332 };  
 
     const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-    // The map, centered at Uluru
-    map = new Map(document.getElementById("mapa"), {
-        zoom: 4,
-        center: position,
+    const map = new Map(document.getElementById("mapa"), {
+        zoom: 10,
+        center: cdmx,  
         mapId: "mapa",
     });
 
-    // The marker, positioned at Uluru
-    const marker = new AdvancedMarkerElement({
-        map: map,
-        position: position,
-        title: "Uluru",
-    });
+    if (empresasData && Array.isArray(empresasData)) {
+        empresasData.forEach(empresa => {
+
+            const lat = parseFloat(empresa.Latitud);
+            const lng = parseFloat(empresa.Longitud);
+
+            if (!isNaN(lat) && !isNaN(lng)) {
+                const latLng = { lat: lat, lng: lng };
+
+                const marker = new google.maps.Marker({
+                    map: map,
+                    position: latLng,
+                    title: empresa.Nombre,
+                });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<h6>${empresa.Nombre}</h6>`, 
+                });
+
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+            } else {
+                console.error(`Ubicación inválida para la empresa ${empresa.Nombre}. Latitud: ${empresa.Latitud}, Longitud: ${empresa.Longitud}`);
+            }
+        });
+    } else {
+        console.warn('No se han encontrado datos de empresas para mostrar en el mapa.');
+    }
 }
 
 initMap();
+

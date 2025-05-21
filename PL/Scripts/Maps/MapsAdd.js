@@ -3,26 +3,73 @@
     v: "weekly",
 });
 
+
 let map;
+let marker = null;
 
 async function initMap() {
-
-    const position = { lat: -25.344, lng: 131.031 };
+    const cdmx = { lat: 19.4326, lng: -99.1332 };
 
     const { Map } = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
     map = new Map(document.getElementById("mapa"), {
-        zoom: 4,
-        center: position,
+        zoom: 12,
+        center: cdmx,
         mapId: "mapa",
     });
 
-    const marker = new AdvancedMarkerElement({
-        map: map,
-        position: position,
-        title: "Uluru",
+    const lat = parseFloat(document.getElementById("lat").value);
+    const lng = parseFloat(document.getElementById("lng").value);
+
+    if (!isNaN(lat) && !isNaN(lng)) {
+        placeMarker(lat, lng);
+    }
+
+    map.addListener("click", (event) => {
+        const latLng = event.latLng;
+
+        if (!marker) {
+            placeMarker(latLng.lat(), latLng.lng());
+        } else {
+            marker.setPosition(latLng);
+        }
+
+        document.getElementById("lat").value = latLng.lat();
+        document.getElementById("lng").value = latLng.lng();
     });
+}
+
+function placeMarker(lat, lng) {
+    const latLng = { lat: lat, lng: lng };
+
+    if (marker) {
+        marker.setPosition(latLng);
+    } else {
+        marker = new google.maps.Marker({
+            map: map,
+            position: latLng,
+            title: "Ubicación",
+            draggable: true,
+        });
+
+        marker.addListener("dragend", () => {
+            const position = marker.getPosition();
+            document.getElementById("lat").value = position.lat();
+            document.getElementById("lng").value = position.lng();
+        });
+    }
+
+    map.setCenter(latLng);
+}
+
+async function fetchLocationData(id) {
+    const response = await fetch(`/api/locations/${id}`);
+    if (response.ok) {
+        const data = await response.json();
+        return data; 
+    } else {
+        console.error("Error al obtener datos de la ubicación");
+    }
 }
 
 initMap();

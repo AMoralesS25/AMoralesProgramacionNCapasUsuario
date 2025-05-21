@@ -213,6 +213,7 @@
     <Content Include="Views\Cita\GetAll.cshtml" />
     <Content Include="Views\Empresa\GetAll.cshtml" />
     <Content Include="Views\Empresa\Form.cshtml" />
+    <Content Include="Views\Empresa\_Notificacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

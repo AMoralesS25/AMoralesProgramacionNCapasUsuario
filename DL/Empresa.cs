@@ -12,17 +12,11 @@ namespace DL
     using System;
     using System.Collections.Generic;
     
-    public partial class Cita
+    public partial class Empresa
     {
-        public int IdCita { get; set; }
-        public System.DateTime FechaHora { get; set; }
-        public Nullable<byte> IdPiso { get; set; }
-        public Nullable<int> IdCandidato { get; set; }
-        public Nullable<byte> IdEstatusCita { get; set; }
-        public string URL { get; set; }
-    
-        public virtual Candidato Candidato { get; set; }
-        public virtual EstatusCita EstatusCita { get; set; }
-        public virtual Piso Piso { get; set; }
+        public int IdEmpresa { get; set; }
+        public string Nombre { get; set; }
+        public string Latitud { get; set; }
+        public string Longitud { get; set; }
     }
 }

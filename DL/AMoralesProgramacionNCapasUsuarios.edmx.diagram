@@ -31,6 +31,7 @@
         <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCitaCandidato" />
         <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCitaEstatusCita" />
         <AssociationConnector Association="AMoralesProgramacionNCapasUsuariosModel.FKCitaPiso" />
+        <EntityTypeShape EntityType="AMoralesProgramacionNCapasUsuariosModel.Empresa" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
