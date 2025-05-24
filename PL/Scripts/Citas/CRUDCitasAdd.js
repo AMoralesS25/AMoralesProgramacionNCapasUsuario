@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     DDLVacante();
-    EligeVacante();
+    $('#divSeleccionaVacante').show();
+    $('#tabla').hide();
+    $('#divSinRegistros').hide();
 });
 
 function DDLVacante() {
@@ -23,8 +25,7 @@ function DDLVacante() {
                 optionsVacante.append(option);
 
             }
-            else
-            {
+            else {
                 console.log("No hay vacantes en la base de datos");
             }
         },
@@ -36,8 +37,7 @@ function DDLVacante() {
     });
 }
 
-function BtnBuscar()
-{
+function BtnBuscar() {
     var idVacante = $('#ddlVacante').val();
     console.log(idVacante);
     $.ajax({
@@ -46,6 +46,10 @@ function BtnBuscar()
         dataType: "json",
         success: function (result) {
             if (result.Correct) {
+
+                $('#divSeleccionaVacante').hide();
+                $('#divSinRegistros').hide();
+
                 var citas = result.Objects;
                 var bodytabla = $('#tbody');
                 bodytabla.empty();
@@ -58,18 +62,34 @@ function BtnBuscar()
                     let imagen = cita.Candidato.ImagenBase64 ? ` <img src="data:image/*;base64, ${cita.Candidato.ImagenBase64}"width="90" , height="90" class="rounded-circle border border-secondary"/>`
                         : `<img class="rounded-circle border border-secondary" id="img" src="https://cdn-icons-png.flaticon.com/512/6522/6522581.png" width="90" , height="90" />`;
 
+                    if (cita.IdCita == 0) {
 
-                    registro += ` <tr>
-                                    <td>
-                                        <a class="btn btn-warning" onclick="UsuarioGetById(${cita.Candidato.IdCandidato})">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-warning" onclick="UsuarioGetById(${cita.Candidato.IdCandidato})">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                    </td>
+                        var btnAddCita = `<a href="@Url.Action("Form", "Candidato", new { IdCandidato = candidato.IdCandidato })" class="btn btn-info"> Agendar
+                            <i class="bi bi-calendar-plus-fill"></i>
+                        </a>`;
+
+                        var btnDeleteCita = `<span class="alert alert-dark">
+                            Sin cita
+                            <i class="bi bi-calendar-event-fill"></i>
+                        </span>`;
+
+                    }
+                    else
+                    {
+
+                        var btnAddCita = ` <a class="btn btn-info" onclick="UsuarioGetById(${cita.Candidato.IdCandidato})"> Editar
+                            <i class="bi bi-calendar-event-fill"></i>
+                        </a>`;
+
+                        var btnDeleteCita = ` <a class="btn btn-danger" onclick="UsuarioGetById(${cita.Candidato.IdCandidato})"> Eliminar
+                            <i class="bi bi-calendar-x-fill"></i>
+                        </a>`;
+
+                    }
+
+                    registro = ` <tr>
+                                    <td>${btnAddCita}</td>
+                                    <td>${btnDeleteCita}</td>
                                     <td>${imagen}</td>
                                     <td>${nombreCompleto}</td>
                                     <td>${cita.Candidato.Edad}</td>
@@ -77,18 +97,29 @@ function BtnBuscar()
                                     <td>${cita.Candidato.Telefono}</td>
                                     <td>${cita.Candidato.Vacante.Nombre}</td>
                                 </tr >`  ;
-                    console.log(registro);
+
+                    bodytabla.append(registro);
                 });
 
-                bodytabla.append(registro);
+
+                $('#tabla').show();
+
             }
             else {
-                NoHayRegistros();
+                $('#divSinRegistros').show();
+                $('#tabla').hide();
+                $('#divSeleccionaVacante').hide();
             }
         },
         error: function (xhr, status, error) {
             console.log("Status: " + status);
             console.log("Error: " + error);
+            $('#divSinRegistros').hide();
+            $('#tabla').hide();
+            $('#divSeleccionaVacante').show();
         }
     });
 }
+
+
+

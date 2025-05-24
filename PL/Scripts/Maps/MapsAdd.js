@@ -68,7 +68,7 @@ async function fetchLocationData(id) {
         const data = await response.json();
         return data; 
     } else {
-        console.error("Error al obtener datos de la ubicación");
+        console.error("Error");
     }
 }
 

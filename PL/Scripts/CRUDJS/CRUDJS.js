@@ -304,7 +304,9 @@ function UsuarioGetById(IdUsuario) {
                 $('#Telefono').val(usuario.Telefono);
                 $('#Celular').val(usuario.Celular);
                 $('#CURP').val(usuario.CURP);
-                $('#ddlRol').val(usuario.Rol.IdRol).trigger('change');
+                DDLRol(function () {
+                    $('#ddlRol').val(usuario.Rol.IdRol);
+                })
 
                 // Si quieres ver el texto del elemento seleccionado:
                 console.log($("#ddlRol :selected").text()); 
@@ -351,7 +353,7 @@ function UsuarioDelete(IdUsuario) {
     });
 }
 
-function DDLRol() {
+function DDLRol(callback) {
     $.ajax({
         url: GetAllRolURL,
         type: "GET",
@@ -372,6 +374,8 @@ function DDLRol() {
 
                 });
                 optionsRol.append(option);
+
+                if (callback) callback();
 
             } else {
                 console.log("No hay Roles en la base de datos");

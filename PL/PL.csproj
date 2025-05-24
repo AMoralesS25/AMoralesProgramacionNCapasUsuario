@@ -169,7 +169,8 @@
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\Candidatos\CandidatosValidaciones.js" />
     <Content Include="Scripts\Candidatos\GetAllCandidatos.js" />
-    <Content Include="Scripts\Citas\CRUDCitas.js" />
+    <Content Include="Scripts\Citas\CitasForm.js" />
+    <Content Include="Scripts\Citas\CRUDCitasAdd.js" />
     <Content Include="Scripts\CRUDJS\CRUDJS.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -184,6 +185,7 @@
     <Content Include="Scripts\Maps\MapsGetAll.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Validaciones\Validaciones.js" />
+    <Content Include="Styles\CitaAdd.css" />
     <Content Include="Styles\MapsAdd.css" />
     <Content Include="Styles\MapsGetAll.css" />
     <Content Include="Styles\UsuarioStyleForm.css" />
@@ -214,6 +216,7 @@
     <Content Include="Views\Empresa\GetAll.cshtml" />
     <Content Include="Views\Empresa\Form.cshtml" />
     <Content Include="Views\Empresa\_Notificacion.cshtml" />
+    <Content Include="Views\Cita\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
