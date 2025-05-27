@@ -10,59 +10,133 @@
 <h2><i class="bi bi-calendar"></i> Citas </h2>
 <hr>
 
-<div class="container mt-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Selecciona una vacante</h5>
-            <p class="card-text">Elige una vacante para visualizar los candidatos y su cita registrados.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="Vacante" class="form-label">Vacante</label>
-                        <select class="form-select" aria-label="Vacante" id="ddlVacante">
-                        </select>
+@using (Html.BeginForm("GetAll", "Cita", FormMethod.Post))
+{
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Selecciona una vacante</h5>
+                <p class="card-text">Elige una vacante para visualizar los candidatos y su cita registrados.</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.DropDownListFor(model => model.Candidato.Vacante.IdVacante,
+                            new SelectList(Model.Candidato.Vacante.Vacantes, "IdVacante", "Nombre"),
+                            "Selecciona una vacante",
+                            new { @class = "form-select", @id = "ddlVacante" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-8 d-flex justify-content-start align-items-end">
-                    <button type="button" onclick="BtnBuscar()" class="btn btn-success w-auto mt-2"><i class="bi bi-search"></i> Buscar</button>
+                    <div class="col-md-8 d-flex justify-content-start align-items-end">
+                        <button type="submit" class="btn btn-success w-auto mt-2"><i class="bi bi-search"></i> Buscar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
 
-<div id="tabla" class="card mt-4 shadow-sm">
-    <div class="card-body">
-        <h5 class="card-title">Registros</h5>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover align-middle">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th>Cita</th>
-                        <th>Eliminar</th>
-                        <th>Foto</th>
-                        <th>Nombre</th>
-                        <th>Edad</th>
-                        <th>Correo</th>
-                        <th>Teléfono</th>
-                        <th>Vacante</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-                </tbody>
-            </table>
+@if (Model.Candidato.Vacante.IdVacante != 0)
+{
+    if (Model.Citas.Count > 0)
+    {
+        <div id="tablaView" class="card mt-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Candidatos Registrados</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover align-middle">
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <th>Cita</th>
+                                <th>Eliminar</th>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
+                                <th>Vacante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ML.Cita cita in Model.Citas)
+                            {
+                                <tr>
+                                    @if (cita.IdCita == 0)
+                                    {
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Form", "Cita", new { IdCita = cita.IdCita, IdCandidato=cita.Candidato.IdCandidato })"
+                                               class="btn btn-info">
+                                                Agendar
+                                                <i class="bi bi-calendar-plus-fill"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="alert alert-dark">
+                                                Sin cita
+                                            </span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Form", "Cita", new { IdCita = cita.IdCita, IdCandidato=cita.Candidato.IdCandidato })"
+                                               class="btn btn-info">
+                                                Editar
+                                                <i class="bi bi-calendar-plus-fill"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="@Url.Action("Delete", "Cita", new { IdCita = cita.IdCita })"
+                                               class="btn btn-danger btn-sm"
+                                               onclick="return confirm('¿Estás seguro de eliminar el registro?')">
+                                                Eliminar
+                                                <i class="bi bi-calendar-x-fill"></i>
+                                            </a>
+                                        </td>
+                                    }
+
+
+                                    <td class="text-center">
+                                        @if (cita.Candidato.Foto == null)
+                                        {
+                                            <img src="https://cdn-icons-png.flaticon.com/512/456/456212.png"
+                                                 width="120" height="120"
+                                                 class="rounded-circle border border-secondary" />
+                                        }
+                                        else
+                                        {
+                                            <img src="data:image/*;base64,@Convert.ToBase64String(cita.Candidato.Foto)"
+                                                 width="120" height="120"
+                                                 class="rounded-circle border border-secondary" />
+                                        }
+                                    </td>
+                                    <td>@(cita.Candidato.Nombre + " " + cita.Candidato.ApellidoPaterno + " " + cita.Candidato.ApellidoMaterno)</td>
+                                    <td>@cita.Candidato.Edad</td>
+                                    <td>@cita.Candidato.Correo</td>
+                                    <td>@cita.Candidato.Telefono</td>
+                                    <td>@cita.Candidato.Vacante.Nombre</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
+    }
+
+    else
+    {
+        <div class="alert alert-warning text-center mt-4 w-75 mx-auto">
+            <i class="bi bi-person-fill-exclamation"></i> No existen registros de candidatos para la vacante seleccionada.
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-info text-center mt-4 w-75 mx-auto">
+        <i class="bi bi-patch-exclamation-fill"></i> Por favor selecciona una vacante para continuar.
     </div>
-</div>
-
-<div class="alert alert-warning text-center mt-4 w-75 mx-auto" id="divSinRegistros">
-    <i class="bi bi-person-fill-exclamation"></i> No existen registros de candidatos para la vacante seleccionada.
-</div>
-
-<div class="alert alert-info text-center mt-4 w-75 mx-auto" id="divSeleccionaVacante">
-    <i class="bi bi-patch-exclamation-fill"></i> Por favor selecciona una vacante para continuar.
-</div>
-
+}
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -72,6 +146,7 @@
 <script>
     var DDLVacanteURL = "@Url.Action("DDLVacante", "Cita")";
     var GetAllURL = "@Url.Action("GetAllCita", "Cita")?idVacante=";
+    var FormURL= "@Url.Action("Form", "Cita")?idCita"
 </script>
 
 <script src="~/Scripts/Citas/CRUDCitasAdd.js"></script>

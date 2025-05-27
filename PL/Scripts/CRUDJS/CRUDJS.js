@@ -290,7 +290,7 @@ function UsuarioGetById(IdUsuario) {
                 var usuario = result.Object;
                 console.log(usuario)
                 CleanModal();
-                DDLRol();
+                //DDLRol();
                 DDLEstado();
                 $('#txtIdUsuario').val(usuario.IdUsuario);
                 $('#Nombre').val(usuario.Nombre);

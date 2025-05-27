@@ -64,7 +64,7 @@ function BtnBuscar() {
 
                     if (cita.IdCita == 0) {
 
-                        var btnAddCita = `<a href="@Url.Action("Form", "Candidato", new { IdCandidato = candidato.IdCandidato })" class="btn btn-info"> Agendar
+                        var btnAddCita = `<a href="@Url.Action("Form", "Cita", new { IdCita = cita.IdCita })" class="btn btn-info"> Agendar
                             <i class="bi bi-calendar-plus-fill"></i>
                         </a>`;
 
@@ -77,11 +77,11 @@ function BtnBuscar() {
                     else
                     {
 
-                        var btnAddCita = ` <a class="btn btn-info" onclick="UsuarioGetById(${cita.Candidato.IdCandidato})"> Editar
+                        var btnAddCita = ` <a class="btn btn-info" href="@Url.Action("Form", "Cita", new { IdCita = cita.IdCita })"> Editar
                             <i class="bi bi-calendar-event-fill"></i>
                         </a>`;
 
-                        var btnDeleteCita = ` <a class="btn btn-danger" onclick="UsuarioGetById(${cita.Candidato.IdCandidato})"> Eliminar
+                        var btnDeleteCita = ` <a class="btn btn-danger" onclick="Usu(${cita.Candidato.IdCandidato})"> Eliminar
                             <i class="bi bi-calendar-x-fill"></i>
                         </a>`;
 

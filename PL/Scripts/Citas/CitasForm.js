@@ -2,14 +2,13 @@
 $(document).ready(function () {
     $('#lblURL').hide();
     $('#lblPiso').hide();
-
-    
 });
 
-$("#datepicker").datepicker();
-dateFormat = "dd-mm-yy";
-showAnim = "Clip (UI Effect)";
-
+$("#datetimepicker").datetimepicker({
+    dateFormat: "dd-mm-yy",
+    timeFormat: "HH:mm",
+    showAnim: "clip"
+});
 
 function EntrevistaPresencial() {
     $('#lblURL').hide();

@@ -12,45 +12,54 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            return View();
+            ML.Cita cita = new ML.Cita();
+            cita.Citas = new List<object>();
+            ML.Result resultDDLVacante = BL.Vacante.GetAll();
+            cita.Candidato = new ML.Candidato();
+            cita.Candidato.Vacante = new ML.Vacante();
+            cita.Candidato.Vacante.Vacantes = resultDDLVacante.Objects;
+
+            return View(cita);
         }
 
-        [HttpGet]
-        public JsonResult DDLVacante()
+        [HttpPost]
+        public ActionResult GetAll(ML.Cita cita)
         {
-            ML.Result result = new ML.Result();
+            int idVacante = cita.Candidato.Vacante.IdVacante;
 
-            result = BL.Vacante.GetAll();
+            idVacante = idVacante == 0 ? 0 : idVacante;
 
-            JsonResult jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            ML.Result result = BL.Cita.GetAll(idVacante);
 
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
+            if (result.Correct)
+            {
+                cita.Citas = result.Objects;
+            }
+            else
+            {
+                cita.Citas = new List<object>();
+            }
+
+            cita.Candidato.Vacante = new ML.Vacante();
+
+            ML.Result resultDDLVacante = BL.Vacante.GetAll();
+            cita.Candidato.Vacante.Vacantes = resultDDLVacante.Objects;
+            cita.Candidato.Vacante.IdVacante = idVacante;
+
+            return View(cita);
         }
 
         [HttpGet]
-        public JsonResult GetAllCita(int IdVacante)
-        {
-            ML.Result result = new ML.Result();
-
-            result = BL.Cita.GetAll(IdVacante);
-
-            JsonResult jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
-        }
-
-        [HttpGet]
-        public ActionResult Form(int? IdCita)
+        public ActionResult Form(int? IdCita, int IdCandidato)
         {
             ML.Cita cita = new ML.Cita();
 
-            if (IdCita == null)
+            if (IdCita == 0)
             {
                 cita.Piso = new ML.Piso();
                 cita.EstatusCita = new ML.EstatusCita();
                 cita.Candidato = new ML.Candidato();
+
             }
             else
             {
@@ -58,7 +67,7 @@ namespace PL.Controllers
                 cita = (ML.Cita)result.Object;
             }
 
-            ML.Result resultCandidato = BL.Candidato.GetById(2);
+            ML.Result resultCandidato = BL.Candidato.GetById(IdCandidato);
 
             cita.Candidato = (ML.Candidato)resultCandidato.Object;
 
@@ -75,16 +84,17 @@ namespace PL.Controllers
         [HttpPost]
         public ActionResult Form(ML.Cita cita)
         {
-
-            //if (cita.IdCita == 0)
-            //{
-            //    ML.Result result = BL.Cita.Add(cita);
-
-            //}
-            //else
-            //{
-            //    ML.Result result = BL.Cita.Update(cita);
-            //}
+            /*
+            if (cita.idcita == 0)
+            {
+                ML.Result result = BL.Cita.Add(cita);
+                
+            }
+            else
+            {
+                ML.Result result = BL.Cita.Update(cita);
+            }
+            */
 
             return RedirectToAction("GetAll");
         }

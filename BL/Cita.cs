@@ -157,7 +157,8 @@ namespace BL
                         cita.Piso = new ML.Piso();
                         cita.EstatusCita = new ML.EstatusCita();
 
-                        cita.FechaHora = citaBD.FechaHora.ToString();
+                        cita.IdCita = citaBD.IdCita;
+                        cita.FechaHora = citaBD.FechaHora.ToString("dd/MM/yyyy HH:mm");
                         cita.URL = citaBD.URL;
                         cita.Piso.IdPiso = citaBD.Piso.IdPiso;
                         cita.Candidato.IdCandidato = citaBD.Candidato.IdCandidato;
