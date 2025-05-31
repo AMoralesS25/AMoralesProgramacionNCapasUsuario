@@ -217,6 +217,7 @@
     <Content Include="Views\Empresa\Form.cshtml" />
     <Content Include="Views\Empresa\_Notificacion.cshtml" />
     <Content Include="Views\Cita\Form.cshtml" />
+    <Content Include="Views\Cita\_Notificacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

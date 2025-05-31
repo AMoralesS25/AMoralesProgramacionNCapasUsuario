@@ -24,16 +24,14 @@
             }
             else
             {
-                <button onclick="EntrevistaRemota()" class="btn btn-success">Entrevista remoto</button>
+                <button onclick="EntrevistaRemota()" class="btn btn-success">Entrevista remota</button>
             }
         }
         else
         {
             <button onclick="EntrevistaPresencial()" class="btn btn-success">Entrevista presencial</button>
-            <button onclick="EntrevistaRemota()" class="btn btn-success">Entrevista remoto</button>
+            <button onclick="EntrevistaRemota()" class="btn btn-success">Entrevista remota</button>
         }
-
-
     </div>
 
     <div class="row justify-content-center gy-4">
@@ -58,18 +56,37 @@
             </div>
         </div>
 
-        <div class="col-md-6" id="form">
+        <div class="col-md-6" id="formRemoto">
             @using (Html.BeginForm("Form", "Cita", FormMethod.Post))
             {
-                <h4 class="mb-4">Agendar entrevista</h4>
+                @Html.HiddenFor(model => model.Candidato.IdCandidato)
+                @Html.HiddenFor(model => model.IdCita)
+                <h4 class="mb-4">Agendar entrevista remota</h4>
                 <div class="mb-3">
                     @Html.LabelFor(model => model.FechaHora, new { @class = "form-label" })
-                    @*@Html.TextBoxFor(model => model.FechaHora, new { @class = "form-control" })*@
                     @Html.TextBoxFor(model => model.FechaHora, new { @class = "form-control", @type = "text", @id = "datetimepicker" })
                 </div>
                 <div class="mb-3" id="lblURL">
                     @Html.LabelFor(model => model.URL, new { @class = "form-label" })
                     @Html.TextBoxFor(model => model.URL, new { @class = "form-control" })
+                </div>
+                <div class="mb-4">
+                    @Html.LabelFor(model => model.EstatusCita.IdEstatusCita, new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "IdEstatusCita", "Nombre"), "Selecciona un estatus", new { @class = "form-select ddlEstatusCita" })
+                </div>
+                <button type="submit" class="btn btn-success me-2">Guardar</button>
+            }
+        </div>
+
+        <div class="col-md-6" id="formPresencial">
+            @using (Html.BeginForm("Form", "Cita", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.IdCita)
+                @Html.HiddenFor(model => model.Candidato.IdCandidato)
+                <h4 class="mb-4">Agendar entrevista presencial</h4>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.FechaHora, new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.FechaHora, new { @class = "form-control", @type = "text", @id = "datetimepickerPresencial" })
                 </div>
                 <div class="mb-3" id="lblPiso">
                     @Html.LabelFor(model => model.Piso.IdPiso, new { @class = "form-label" })
@@ -77,11 +94,12 @@
                 </div>
                 <div class="mb-4">
                     @Html.LabelFor(model => model.EstatusCita.IdEstatusCita, new { @class = "form-label" })
-                    @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "IdEstatusCita", "Nombre"), "Selecciona un estatus", new { @class = "form-select" })
+                    @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "IdEstatusCita", "Nombre"), "Selecciona un estatus", new { @class = "form-select ddlEstatusCita" })
                 </div>
                 <button type="submit" class="btn btn-success me-2">Guardar</button>
             }
         </div>
+
     </div>
 </div>
 
@@ -92,8 +110,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
 
-<script src="~/Scripts/Citas/CitasForm.js"></script>
 <script>
     var cita = @Html.Raw(Json.Encode(Model))
-    console.log(cita.URL)
+    //console.log(cita.URL)
 </script>
+
+<script src="~/Scripts/Citas/CitasForm.js"></script>

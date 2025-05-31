@@ -84,19 +84,52 @@ namespace PL.Controllers
         [HttpPost]
         public ActionResult Form(ML.Cita cita)
         {
-            /*
-            if (cita.idcita == 0)
+
+            if (cita.IdCita == 0)
             {
                 ML.Result result = BL.Cita.Add(cita);
-                
+                if (result.Correct)
+                {
+                    ViewBag.Mensaje = "Se agrego la cita de manera correcta";
+                    return PartialView("_Notificacion");
+                }
+                else
+                {
+                    ViewBag.MensajeError = "Hubo un error al agregar la cita";
+                    return PartialView("_Notificacion");
+                }
             }
             else
             {
                 ML.Result result = BL.Cita.Update(cita);
+                if (result.Correct)
+                {
+                    ViewBag.Mensaje = "Se agrego la cita de manera correcta";
+                    return PartialView("_Notificacion");
+                }
+                else
+                {
+                    ViewBag.MensajeError = "Hubo un error al agregar la cita";
+                    return PartialView("_Notificacion");
+                }
             }
-            */
+        }
 
-            return RedirectToAction("GetAll");
+        [HttpGet]
+        public ActionResult Delete(int IdCita)
+        {
+
+            ML.Result result = BL.Cita.Delete(IdCita);
+            if (result.Correct)
+            {
+                ViewBag.Mensaje = "Cita eliminada";
+                return PartialView("_Notificacion");
+            }
+            else
+            {
+                ViewBag.MensajeError = "No se pudo eliminar la cita";
+                return PartialView("_Notificacion");
+            }
         }
 
     }

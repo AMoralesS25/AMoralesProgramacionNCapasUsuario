@@ -99,15 +99,15 @@ namespace BL
                 {
 
                     DL.Cita citaBD = new DL.Cita();
-                    citaBD.Candidato = new DL.Candidato();
-                    citaBD.Piso = new DL.Piso();
-                    citaBD.EstatusCita = new DL.EstatusCita();
-
+                    
                     citaBD.FechaHora = DateTime.Parse(cita.FechaHora.ToString());
                     citaBD.URL = cita.URL;
-                    citaBD.Piso.IdPiso = cita.Piso.IdPiso;
-                    citaBD.Candidato.IdCandidato = cita.Candidato.IdCandidato;
-                    citaBD.EstatusCita.IdEstatusCita = cita.EstatusCita.IdEstatusCita;
+
+                    citaBD.IdCandidato = cita.Candidato.IdCandidato;
+
+                    citaBD.IdPiso = (byte?)(cita.Piso?.IdPiso ?? 0);
+
+                    citaBD.IdEstatusCita = cita.EstatusCita.IdEstatusCita;
 
                     context.Citas.Add(citaBD);
 
@@ -199,18 +199,11 @@ namespace BL
 
                     if (query != null)
                     {
-                        DL.Cita citaBD = new DL.Cita();
-                        citaBD.Candidato = new DL.Candidato();
-                        citaBD.Piso = new DL.Piso();
-                        citaBD.EstatusCita = new DL.EstatusCita();
-
-                        citaBD.FechaHora = DateTime.Parse(cita.FechaHora.ToString());
-                        citaBD.URL = cita.URL;
-                        citaBD.Piso.IdPiso = cita.Piso.IdPiso;
-                        citaBD.Candidato.IdCandidato = cita.Candidato.IdCandidato;
-                        citaBD.EstatusCita.IdEstatusCita = cita.EstatusCita.IdEstatusCita;
-
-                        context.Citas.Add(citaBD);
+                        query.FechaHora = DateTime.Parse(cita.FechaHora.ToString());
+                        query.URL = cita.URL;
+                        query.IdPiso = cita.Piso.IdPiso;
+                        query.IdCandidato = cita.Candidato.IdCandidato;
+                        query.IdEstatusCita = cita.EstatusCita.IdEstatusCita;
 
                         int filasAfectadas = context.SaveChanges();
 
@@ -221,11 +214,15 @@ namespace BL
                         else
                         {
                             result.Correct = false;
-                            result.ErrorMessage = "No se actualizo el registro";
+                            result.ErrorMessage = "No se actualizó el registro";
                         }
                     }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se encontró la cita";
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -236,6 +233,7 @@ namespace BL
 
             return result;
         }
+
 
         public static ML.Result Delete(int idCita)
         {
