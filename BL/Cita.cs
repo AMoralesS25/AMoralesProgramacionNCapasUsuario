@@ -105,7 +105,7 @@ namespace BL
 
                     citaBD.IdCandidato = cita.Candidato.IdCandidato;
 
-                    citaBD.IdPiso = (byte?)(cita.Piso?.IdPiso ?? 0);
+                    //citaBD.IdPiso = (byte?)(cita.Piso?.IdPiso ?? 0);
 
                     citaBD.IdEstatusCita = cita.EstatusCita.IdEstatusCita;
 
