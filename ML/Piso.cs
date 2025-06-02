@@ -10,7 +10,7 @@ namespace ML
     public class Piso
     {
         [DisplayName("Piso")]
-        public byte IdPiso { get; set; }
+        public byte? IdPiso { get; set; }
         public string Nombre { get; set; }
         public List<object> Pisos { get; set; }
     }

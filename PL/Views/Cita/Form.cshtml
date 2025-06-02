@@ -18,7 +18,7 @@
     <div class="mb-4 d-flex gap-3">
         @if (Model.IdCita != 0)
         {
-            if (Model.Piso.IdPiso != 0)
+            if (Model.Piso.IdPiso != 0 || Model.Piso.IdPiso!=null)
             {
                 <button onclick="EntrevistaPresencial()" class="btn btn-success">Entrevista presencial</button>
             }

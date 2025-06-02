@@ -5,12 +5,12 @@ $(document).ready(function () {
 
 
 function forms() {
-    let idCita = cita.idCita;
-    DDLEstatusCita(idCita);
-    if (cita.Piso.IdPiso != 0 || cita.URL != null) {
-        if (cita.Piso.IdPiso == 0) {
-            $('#formRemoto').hide();
-            $('#formPresencial').show();
+    let idCita = cita.IdCita;
+    DDLEstatusCita(IdCita);
+    if (cita.Piso.IdPiso != 0 || cita.URL != null || cita.Piso.IdPiso != null) {
+        if (cita.Piso.IdPiso == 0 || cita.Piso.IdPiso == null) {
+            $('#formRemoto').show();
+            $('#formPresencial').hide();
         }
         if (cita.URL == null) {
             $('#formRemoto').hide();

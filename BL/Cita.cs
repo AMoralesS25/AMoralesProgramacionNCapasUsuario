@@ -105,7 +105,7 @@ namespace BL
 
                     citaBD.IdCandidato = cita.Candidato.IdCandidato;
 
-                    //citaBD.IdPiso = (byte?)(cita.Piso?.IdPiso ?? 0);
+                    citaBD.IdPiso = cita.Piso?.IdPiso;
 
                     citaBD.IdEstatusCita = cita.EstatusCita.IdEstatusCita;
 
@@ -160,7 +160,7 @@ namespace BL
                         cita.IdCita = citaBD.IdCita;
                         cita.FechaHora = citaBD.FechaHora.ToString("dd/MM/yyyy HH:mm");
                         cita.URL = citaBD.URL;
-                        cita.Piso.IdPiso = citaBD.Piso.IdPiso;
+                        cita.Piso.IdPiso = citaBD.IdPiso;
                         cita.Candidato.IdCandidato = citaBD.Candidato.IdCandidato;
                         cita.EstatusCita.IdEstatusCita = citaBD.EstatusCita.IdEstatusCita;
 
